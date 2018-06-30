@@ -41,7 +41,6 @@ export default class PageSelector extends Vue {
 
   @Watch("total")
   updatePage() {
-    console.log('total updated');
     this.totalp = ~~(this.total / 15) + +(this.total % 15 !== 0);
   }
 

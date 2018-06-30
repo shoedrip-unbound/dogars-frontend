@@ -27,11 +27,11 @@ export default class ChampComponent extends Vue {
   img: string = "";
   elo: number = 1000;
   reload() {
-    this.elo = 1000;
     let a = this.data.avatar;
     a = a.substr(a[0] == "#");
     this.img = `https://play.pokemonshowdown.com/sprites/trainers/${a}.png`;
     if (!this.data.elo) return;
+    this.elo = 1000;
     if (this.data.elo[0] != "]") {
       this.elo = ~~this.data.elo;
       return;
@@ -44,15 +44,7 @@ export default class ChampComponent extends Vue {
     this.elo = ~~rou.elo;
   }
 
-  beforeUpdate() {
-    this.reload();
-  }
-
   mounted() {
-    this.reload();
-  }
-
-  updated() {
     this.reload();
   }
 

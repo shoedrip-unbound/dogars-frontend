@@ -7,7 +7,9 @@
     v-on:next="goToNext()"
     v-on:last="goToLast()"
     />
-    <component :is="comp" v-for="(data, idx) in dataarr" :key="idx" :data="data"></component>
+    <div class="page">
+      <component :is="comp" v-for="(data, idx) in dataarr" :key="idx" :data="data"></component>
+    </div>
   </div>
   <div v-show="!ready">
     <h2>Loading...</h2>
@@ -62,8 +64,7 @@ export default class DataPager extends Vue {
       .join("&");
     axios.get(`${this.endpoint}?${q}`).then(s => {
       this.total = +s.data[0];
-      this.totalp = ~~(this.total / 15) + +(this.totalp % 15 !== 0);
-      console.log(this.totalp);
+      this.totalp = ~~(this.total / 15) + +(this.total % 15 !== 0);
       this.dataarr = s.data[1];
       this.ready = true;
     });
@@ -113,7 +114,6 @@ export default class DataPager extends Vue {
 
   @Watch("$route")
   watchRoute(newv: this["$route"]) {
-    console.log(newv);
     this.refresh(newv);
   }
 
@@ -123,3 +123,10 @@ export default class DataPager extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.flex > div > .page{
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+</style>

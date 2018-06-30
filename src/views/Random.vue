@@ -11,7 +11,6 @@ import axios from 'axios';
 export default class Random extends Vue {
   created() {
     axios.get('/api/random').then(id => {
-      console.log(id);
       this.$router.replace(`/set/${id.data}`);
     });
   }

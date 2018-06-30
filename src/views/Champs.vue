@@ -1,6 +1,6 @@
 <template>
-<div id="all">
-  <DataPager :endpoint="'/api/champs'" :comp="'ChampComponent'"/>
+<div id="champs">
+  <DataPager class="flex" :endpoint="'/api/champs'" :comp="'ChampComponent'"/>
 </div>
 </template>
 
@@ -16,3 +16,7 @@ import DataPager from "@/components/DataPager.vue";
 export default class Champs extends Vue {
 }
 </script>
+
+<style scoped>
+
+</style>

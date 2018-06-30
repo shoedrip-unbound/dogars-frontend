@@ -17,7 +17,6 @@ export default class Set extends Vue {
   set: any = {};
 
   created() {
-    console.log("create");
     let id = this.$route.params.id;
     axios.get(`/api/sets/${id}`).then(s => {
       this.set = s.data;

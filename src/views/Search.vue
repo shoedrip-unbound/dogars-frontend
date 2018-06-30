@@ -42,7 +42,6 @@ export default class Search extends Vue {
   [key: string]: any;
 
   search() {
-    console.log(this.$data);
     let q = JSON.parse(JSON.stringify(this.$data));
     this.$router.push({ path: "/results", query: q });
   }

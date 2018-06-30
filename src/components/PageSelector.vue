@@ -61,7 +61,7 @@ export default class PageSelector extends Vue {
 
 <style scoped>
 div.pageselect {
-  margin: 0 auto 0 auto;
+  margin: 0 auto 10px auto;
   display: table;
   text-align: center;
   padding: 10px 20px 10px 20px;

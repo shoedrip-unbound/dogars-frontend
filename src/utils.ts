@@ -43,7 +43,7 @@ export function setToString(mset: Sets): string {
         res += ` @ ${mset.item}`;
     res += `\nAbility: ${mset.ability}\n`;
     if (mset.level && mset.level != 100)
-        res += `Level: ${mset.ability}\n`;
+        res += `Level: ${mset.level}\n`;
     if (mset.shiny && mset.shiny !== 0)
         res += 'Shiny: Yes\n';
 

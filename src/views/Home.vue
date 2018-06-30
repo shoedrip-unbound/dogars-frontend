@@ -1,18 +1,36 @@
 <template>
   <div class="home">
-    <img src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    Note: The site is still under construction and only core features (upload and search) are available.
+    <h2>Welcome to the Meme Database</h2>
+    Simply, this is a place to submit and view meme sets. If you don't know what this is, lurk moar. That's it. Now go find some memes.
+    <h2>Meme of the day</h2>
+    <SetComponent v-bind:data="meme"/>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
+import { Component, Vue } from "vue-property-decorator";
+import SetComponent from "@/components/SetComponent.vue"; // @ is an alias to /src
+import axios from "axios";
+import { Sets } from "@/Models/Sets";
 
 @Component({
   components: {
-  HelloWorld,
-  },
-  })
-export default class Home extends Vue {}
+    SetComponent
+  }
+})
+export default class Home extends Vue {
+  meme: Sets = {} as Sets;
+  created() {
+    axios.get<Sets>("/api/day").then(ran => {
+      this.meme = ran.data;
+    });
+  }
+}
 </script>
+
+<style scoped>
+  h2 {
+    text-align: center;
+  }
+</style>

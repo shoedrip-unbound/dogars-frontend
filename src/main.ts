@@ -25,7 +25,7 @@ import 'vue-awesome/icons/angle-double-left';
 import 'vue-awesome/icons/angle-right';
 import 'vue-awesome/icons/angle-double-right';
 
-import Icon from 'vue-awesome';
+import Icon from 'vue-awesome/components/Icon';
 
 Component.registerHooks([
   'beforeRouteEnter',

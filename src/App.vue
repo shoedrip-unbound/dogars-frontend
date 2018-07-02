@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <ChampPog/>
     <Banner/>
     <SearchBar/>
     <NavBar/>
@@ -16,12 +17,14 @@ import Banner from "@/components/Banner.vue";
 import NavBar from "@/components/NavBar.vue";
 import Bottom from "@/components/Bottom.vue";
 import SearchBar from "@/components/SearchBar.vue";
+import ChampPog from "@/components/ChampPog.vue";
 
 @Component({
   components: {
     Banner,
     NavBar,
     SearchBar,
+    ChampPog,
     Bottom
   }
 })
@@ -84,7 +87,7 @@ a:hover {
 
 body {
   margin: 0;
-  background-color: #dedede;
+  background-color: #ececec;
 }
 
 @media screen and (min-width: 426px) {
@@ -96,6 +99,16 @@ body {
     box-shadow: 0 0 20px -5px;
   }
 
+  #nav a,
+  #bot a {
+    height: 1.3em;
+    display: inline-block;
+    text-decoration: none;
+    padding: 0 10px 0 10px;
+  }
+}
+
+@media screen and (orientation: portrait) and (max-width: 480px) {
   #nav a,
   #bot a {
     height: 1.3em;

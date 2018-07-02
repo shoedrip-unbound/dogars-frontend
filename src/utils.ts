@@ -72,3 +72,9 @@ export function setToString(mset: Sets): string {
 
     return res;
 }
+
+export let avatarLink = (avatar: string) => {
+    let a = avatar;
+    a = a.substr(+(a[0] == "#"));
+    return `https://play.pokemonshowdown.com/sprites/trainers/${a}.png`;
+}

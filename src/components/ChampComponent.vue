@@ -19,6 +19,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Provide, Watch } from "vue-property-decorator";
 import { Champ } from "@/Models/Champ";
+import { avatarLink } from '@/utils';
 
 @Component
 export default class ChampComponent extends Vue {
@@ -27,9 +28,7 @@ export default class ChampComponent extends Vue {
   img: string = "";
   elo: number = 1000;
   reload() {
-    let a = this.data.avatar;
-    a = a.substr(a[0] == "#");
-    this.img = `https://play.pokemonshowdown.com/sprites/trainers/${a}.png`;
+    this.img = avatarLink(this.data.avatar);
     if (!this.data.elo) return;
     this.elo = 1000;
     if (this.data.elo[0] != "]") {
@@ -75,7 +74,13 @@ export default class ChampComponent extends Vue {
 }
 
 .champ hr {
-    border: none;
-    border-bottom: 1px solid;
+  border: none;
+  border-bottom: 1px solid;
+}
+
+@media screen and (max-width: 425px) {
+  .champ {
+    width: 48%;
+  }
 }
 </style>

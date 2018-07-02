@@ -119,13 +119,13 @@ textarea {
   resize: none;
 }
 
-@media screen and (max-width: 375px) and (min-width: 320px) {
+@media screen and (min-width: 320px) and (max-width: 480px) {
   .set {
     width: 100%;
   }
 
   .set img {
-    width: 150%;
+    width: 200%;
   }
 }
 </style>

@@ -17,11 +17,11 @@ Also use a gaming rig because dude bloat lmao.
 Todo
 ----
 
-- Battle link
 - Champs
 - Replays
-- Cringe
 - Contact
 - User settings
 - Maybe bring back lillie
-- Fix possible bugs
+- Fix possible bugs:
+    - Quick Search from Chrom* omnibar
+Write a better CSS for phones.

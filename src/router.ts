@@ -12,6 +12,7 @@ import ComingSoon from './views/ComingSoon.vue';
 import Search from './views/Search.vue';
 import Results from './views/Results.vue';
 import Champs from './views/Champs.vue';
+import Cringe from './views/Cringe.vue';
 
 Vue.use(Router);
 
@@ -53,7 +54,7 @@ export default new Router({
     }, {
       path: '/cringe',
       name: 'cringe',
-      component: ComingSoon
+      component: Cringe
     }, {
       path: '/settings',
       name: 'settings',

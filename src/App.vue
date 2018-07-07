@@ -34,6 +34,23 @@ export default class App extends Vue {}
 <style>
 @import url("https://fonts.googleapis.com/css?family=Itim");
 
+button {
+    background: white;
+    border: 1px solid;
+    border-radius: 6px;
+    color: #2c3e4f;
+}
+
+select {
+    color: #2c3e50;
+    background: white;
+    border-color: #2c3e50;
+    font-size: 1.1em;
+    border-radius: 5px;
+    padding: 4px;
+    font-family: Itim;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

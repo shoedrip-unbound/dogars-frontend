@@ -39,9 +39,9 @@ export default class PageSelector extends Vue {
 
   totalp: number = 1;
 
-  @Watch("total")
+  @Watch("$props", {deep: true})
   updatePage() {
-    this.totalp = ~~(this.total / 15) + +(this.total % 15 !== 0);
+    this.totalp = ~~(this.total / this.spp) + +(this.total % this.spp !== 0);
   }
 
   @Emit("first")

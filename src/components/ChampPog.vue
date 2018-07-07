@@ -1,4 +1,4 @@
-<template v-if="currentChamp">
+<template v-if="currentChamp && currentChamp.active">
   <a class="current" :href="currentChamp.current_battle">
     <img :src="img"/>
     <hr>

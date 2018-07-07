@@ -58,20 +58,23 @@ export default class DataPager extends Vue {
   reload() {
     this.ready = false;
     let q = JSON.parse(JSON.stringify(this.query));
+    if (q.spp)
+      this.spp = q.spp;
     q.page = this.current;
     q = Object.keys(q)
       .map(k => `${k}=${encodeURIComponent(q[k])}`)
       .join("&");
     axios.get(`${this.endpoint}?${q}`).then(s => {
       this.total = +s.data[0];
-      this.totalp = ~~(this.total / 15) + +(this.total % 15 !== 0);
+      this.totalp = ~~(this.total / this.spp) + +(this.total % this.spp !== 0);
       this.dataarr = s.data[1];
       this.ready = true;
+      this.navigate();
     });
   }
 
   navigate() {
-    let q = JSON.parse(JSON.stringify(this.$route.query));
+    let q = JSON.parse(JSON.stringify(this.query));
     q.page = "" + this.current;
     this.$router.push({
       path: this.$route.path,
@@ -81,26 +84,18 @@ export default class DataPager extends Vue {
 
   goToFirst() {
     this.current = 1;
-    this.navigate();
-    this.reload();
   }
 
   goToPrevious() {
     if (this.current > 1) this.current--;
-    this.navigate();
-    this.reload();
   }
 
   goToNext() {
     if (this.current < this.totalp) this.current++;
-    this.navigate();
-    this.reload();
   }
 
   goToLast() {
     this.current = this.totalp;
-    this.navigate();
-    this.reload();
   }
 
   created() {
@@ -108,18 +103,10 @@ export default class DataPager extends Vue {
     this.reload();
   }
 
-  refresh(route: this["$route"]) {
+  @Watch('$props', {deep: true, immediate: false})
+  @Watch('current')
+  paramModified() {
     this.reload();
-  }
-
-  @Watch("$route")
-  watchRoute(newv: this["$route"]) {
-    this.refresh(newv);
-  }
-
-  beforeRouteUpdate(to: this["$route"], from: any, next: any) {
-    this.refresh(to);
-    next();
   }
 }
 </script>

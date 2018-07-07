@@ -45,6 +45,11 @@ export default class Search extends Vue {
     let q = JSON.parse(JSON.stringify(this.$data));
     this.$router.push({ path: "/results", query: q });
   }
+
+  created() {
+    let q = this.$route.query.q;
+    if (q) this.$router.replace({ path: "/results", query: { q } });
+  }
 }
 </script>
 

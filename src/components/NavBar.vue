@@ -53,7 +53,6 @@
   }
 }
 
-
 @media screen and (min-width: 426px) and (max-width: 768px) {
   #nav {
     font-size: 2em;

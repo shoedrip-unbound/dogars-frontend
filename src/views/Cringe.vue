@@ -1,5 +1,7 @@
 <template>
 <div id="cringe">
+  <h1>Cringe compilation</h1>
+  <p>Say *snap* in chat to get added to my cringe compilation. New snaps are added at the top in real-time</p>
   <InfinityViewer @bottom="loadOlder" :maxed="maxed" :list="cringe" :comp="'CringeComponent'"/>
 </div>
 </template>

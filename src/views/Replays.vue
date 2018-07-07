@@ -4,10 +4,10 @@
     <h3>Submit a replay</h3>
     <input @focus="error = ''" v-model="link" placeholder="Link" type="text"/>
     <textarea @focus="error = ''" v-model="description" placeholder="Description"></textarea>
-    <button :disabled="ready" @click="send()">Submit</button>
+    <button :disabled="nready" @click="send()">Submit</button>
     <p v-if="error" class="error">{{error}}</p>
   </div>
-  <DataPager :endpoint="endpoint" :comp="'ReplayComponent'"/>
+  <DataPager ref="pager" :endpoint="endpoint" :comp="'ReplayComponent'"/>
   <router-link to="/replays/auto">Check automatic replays</router-link>
 </div>
 </template>
@@ -26,18 +26,24 @@ export default class Replays extends Vue {
   link: string = "";
   description: string = "";
 
-  error: string = '';
+  error: string = "";
   nready: boolean = false;
-  endpoint: string = '/api/replays';
+  endpoint: string = "/api/replays";
   async send() {
     try {
-      this.error = '';
+      this.error = "";
       this.nready = true;
-      await axios.post("/replays", {link: this.link, description: this.description});
-      // force reload
-      this.endpoint = '/api/replays';
+      await axios.post<any>("/api/replays", {
+        link: this.link,
+        description: this.description
+      });
+      let pager = this.$refs["pager"] as any;
+      if (pager) pager.reload();
+      this.link = '';
+      this.description = '';
     } catch (e) {
-      this.error = 'Something happened :(';
+      console.log(e);
+      this.error = "Something happened :(";
     }
     this.nready = false;
   }

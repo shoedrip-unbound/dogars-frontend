@@ -1,5 +1,5 @@
-<template v-if="currentChamp && currentChamp.active">
-  <a class="current" :href="currentChamp.current_battle">
+<template>
+  <a v-if="currentChamp.active" class="current" :href="currentChamp.current_battle">
     <img :src="img"/>
     <hr>
     <div>{{currentChamp.name}}</div>
@@ -39,7 +39,7 @@ export default class ChampPog extends Vue {
   font-size: small;
   text-align: center;
   border-radius: 9999px;
-  box-shadow: 0 0 58px -21px, 0 4px #d0d0d0;
-  background-color: white;
+  box-shadow: 0 0 58px -21px, 0 4px var(--content);
+  background-color: var(--content);
 }
 </style>

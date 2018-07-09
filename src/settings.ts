@@ -1,3 +1,3 @@
 export let settings = {
-    domain: 'https://dogars.ml'
+    domain: REMOTE
 };

@@ -87,6 +87,6 @@ div.pageselect {
 
 .pageselect svg:hover {
   cursor: pointer;
-  background-color: rgb(201, 201, 201);
+  background-color: var(--highlight);
 }
 </style>

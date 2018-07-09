@@ -13,6 +13,9 @@ import Search from './views/Search.vue';
 import Results from './views/Results.vue';
 import Champs from './views/Champs.vue';
 import Cringe from './views/Cringe.vue';
+import Settings from './views/Settings.vue';
+import Contact from './views/Contact.vue';
+import Changelog from './views/Changelog.vue';
 
 Vue.use(Router);
 
@@ -50,7 +53,7 @@ export default new Router({
     }, {
       path: '/changelog',
       name: 'changelog',
-      component: ComingSoon
+      component: Changelog
     }, {
       path: '/cringe',
       name: 'cringe',
@@ -58,11 +61,11 @@ export default new Router({
     }, {
       path: '/settings',
       name: 'settings',
-      component: ComingSoon
+      component: Settings
     }, {
       path: '/contact',
       name: 'contact',
-      component: ComingSoon
+      component: Contact
     }, {
       path: '/search',
       name: 'search',

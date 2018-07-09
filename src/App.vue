@@ -34,30 +34,55 @@ export default class App extends Vue {}
 <style>
 @import url("https://fonts.googleapis.com/css?family=Itim");
 
+body {
+  margin: 0;
+
+  /* Out Of Focus, like the background */
+  --oof: #ececec;
+
+  /* Container is above meaningful content */
+  --content: #ececec;
+
+  /* Used for hovering */
+  --highlight: #cccccc;
+  --overlay: #ececec;
+
+  /* Obvious */
+  --text: #2c3e4f;
+  background-color: var(--oof);
+}
+
+textarea,
+button,
+input,
+select {
+  background: var(--content);
+  color: var(--text);
+  padding: 5px;
+  border: 1px solid var(--text);
+  box-sizing: border-box;
+}
+
 button {
-    background: white;
-    border: 1px solid;
-    border-radius: 6px;
-    color: #2c3e4f;
+  border: 1px solid;
+  border-radius: 6px;
 }
 
 select {
-    color: #2c3e50;
-    background: white;
-    border-color: #2c3e50;
-    font-size: 1.1em;
-    border-radius: 5px;
-    padding: 4px;
-    font-family: Itim;
+  border-color: var(--text);
+  font-size: 1.1em;
+  border-radius: 5px;
+  padding: 4px;
+  font-family: Itim;
 }
 
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: var(--text);
   overflow: hidden;
-  background-color: white;
+  background-color: var(--content);
   margin-bottom: 10px;
 }
 
@@ -81,7 +106,7 @@ h3 {
   vertical-align: middle;
   font-family: "Itim", cursive;
   font-weight: bold;
-  color: #2c3e50;
+  color: var(--text);
   display: inline-block;
   text-decoration: none;
   padding: 0 10px 0 0;
@@ -93,18 +118,13 @@ a.router-link-exact-active {
 }
 
 a {
-  color: #2c3e50;
+  color: var(--text);
   text-decoration: none;
 }
 
 a:hover {
-  background-color: #cfdeec;
+  background-color: var(--highlight);
   text-decoration: none;
-}
-
-body {
-  margin: 0;
-  background-color: #ececec;
 }
 
 @media screen and (min-width: 426px) {

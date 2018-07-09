@@ -27,17 +27,20 @@ import 'vue-awesome/icons/angle-double-right';
 
 import Icon from 'vue-awesome/components/Icon';
 
+import { init } from './ThemeManager';
+
 Component.registerHooks([
   'beforeRouteEnter',
   'beforeRouteLeave',
   'beforeRouteUpdate'
 ]);
-
 Vue.component('icon', Icon);
 
 axios.defaults.baseURL = settings.domain;
 
 Vue.config.productionTip = false;
+
+init();
 
 let v = new Vue({
   router,

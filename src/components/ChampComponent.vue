@@ -56,10 +56,10 @@ export default class ChampComponent extends Vue {
 
 <style scoped>
 .champ {
-  border: 1px solid grey;
-  background-color: white;
-  color: gray;
-  box-shadow: 0 5px 0px 0px #cecece;
+  border: 1px solid var(--text);
+  background-color: var(--content);
+  color: var(--text);
+  box-shadow: 0 5px 0px 0px var(--text);
   border-radius: 7px;
   padding: 1% 0 1% 0;
   margin: 1%;
@@ -75,7 +75,7 @@ export default class ChampComponent extends Vue {
 
 .champ hr {
   border: none;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid var(--text);
 }
 
 @media screen and (max-width: 425px) {

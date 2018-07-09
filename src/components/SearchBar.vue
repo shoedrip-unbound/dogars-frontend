@@ -29,8 +29,13 @@ export default class SearchBar extends Vue {
   min-height: 48px;
   font-family: "Itim", cursive;
   border: 0;
-  box-shadow: 0px 15px 30px -20px inset;
+  box-shadow: 0px 15px 30px -20px inset black;
   text-align: center;
   font-size: 2em;
+  background-color: var(--content);
+}
+
+::placeholder {
+  color: var(--text);
 }
 </style>

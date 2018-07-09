@@ -1,11 +1,11 @@
 <template>
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-      <router-link to="/import">Import</router-link>
-      <router-link to="/random">Random</router-link>
-      <router-link to="/all">All</router-link>
-      <router-link to="/fame">Wall of fame</router-link>
-    </div>
+  <div id="nav">
+    <router-link to="/">Home</router-link>
+    <router-link to="/import">Import</router-link>
+    <router-link to="/random">Random</router-link>
+    <router-link to="/all">All</router-link>
+    <router-link to="/fame">Wall of fame</router-link>
+  </div>
 </template>
 
 <style scoped>

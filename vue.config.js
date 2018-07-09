@@ -6,8 +6,8 @@ let latestcommit = cp.spawnSync('git', ['rev-list', '--max-count=1', 'master']).
 latestcommit = latestcommit.substr(0, 6);
 let commitCount = cp.spawnSync('git', ['rev-list', '--count', 'master']).stdout.toString().trim();
 
-let commitstr = cp.spawnSync('git', ['log', `--pretty=format:%h%x00%ad%x00%s%x00%b`]).stdout.toString();
-let grouped = commitstr.split('\n').map(s => s.split('\x00'));
+let commitstr = cp.spawnSync('git', ['log', `--pretty=format:%h%x00%ad%x00%s%x00%b%x00`]).stdout.toString();
+let grouped = commitstr.split('\x00\n').map(s => s.split('\x00'));
 
 let commits = grouped.map(g => {
   return {
@@ -16,7 +16,7 @@ let commits = grouped.map(g => {
     subject: g[2],
     message: g[3]
   };
-});
+}).filter(m => !m.message.toLowerCase().includes('merge'));
 
 module.exports = {
   runtimeCompiler: true,

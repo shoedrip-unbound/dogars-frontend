@@ -1,15 +1,15 @@
 <template>
-<div id="settings">
-  <p>Build #{{version}} ({{commit}})</p>
-  <h2>Theme</h2>
-  <div v-for="theme in themes" :key="theme">
-    <label>{{theme}}<input v-model="stheme" :value="theme" type="radio"></label>
+  <div id="settings">
+    <p>Build #{{version}} ({{commit}})</p>
+    <h2>Theme</h2>
+    <div v-for="theme in themes" :key="theme">
+      <label>{{theme}}<input v-model="stheme" :value="theme" type="radio"></label>
+    </div>
+    <h2>Waifu</h2>
+    <div v-for="waifu in waifus" :key="waifu">
+      <label>{{waifu}}<input v-model="swaifu" :value="waifu" type="radio"></label>
+    </div>
   </div>
-  <h2>Waifu</h2>
-  <div v-for="waifu in waifus" :key="waifu">
-    <label>{{waifu}}<input v-model="swaifu" :value="waifu" type="radio"></label>
-  </div>
-</div>
 </template>
 
 <script lang="ts">

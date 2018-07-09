@@ -1,9 +1,9 @@
 <template>
-    <div class="replay">
-        <a :href="data.link">{{data.link}}</a>
-        <hr>
-        <p>{{data.description}}</p>
-    </div>
+  <div class="replay">
+    <a :href="data.link">{{data.link}}</a>
+    <hr>
+    <p>{{data.description}}</p>
+  </div>
 </template>
 
 <script lang="ts">

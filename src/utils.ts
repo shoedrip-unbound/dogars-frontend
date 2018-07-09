@@ -1,6 +1,5 @@
 import { Sets } from '@/Models/Sets';
 import { settings } from '@/settings';
-import Axios from 'axios';
 
 export let toId = (text: any) => {
     // this is a duplicate of Dex.getId, for performance reasons

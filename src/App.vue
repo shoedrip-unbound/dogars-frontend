@@ -41,7 +41,7 @@ body {
   --oof: #ececec;
 
   /* Container is above meaningful content */
-  --content: #ececec;
+  --content: #white;
 
   /* Used for hovering */
   --highlight: #cccccc;

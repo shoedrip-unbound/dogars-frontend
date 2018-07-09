@@ -1,15 +1,15 @@
 <template>
-<div id="replays">
-  <div id="replsubmit">
-    <h3>Submit a replay</h3>
-    <input @focus="error = ''" v-model="link" placeholder="Link" type="text"/>
-    <textarea @focus="error = ''" v-model="description" placeholder="Description"></textarea>
-    <button :disabled="nready" @click="send()">Submit</button>
-    <p v-if="error" class="error">{{error}}</p>
+  <div id="replays">
+    <div id="replsubmit">
+      <h3>Submit a replay</h3>
+      <input @focus="error = ''" v-model="link" placeholder="Link" type="text"/>
+      <textarea @focus="error = ''" v-model="description" placeholder="Description"></textarea>
+      <button :disabled="nready" @click="send()">Submit</button>
+      <p v-if="error" class="error">{{error}}</p>
+    </div>
+    <DataPager ref="pager" :endpoint="endpoint" :comp="'ReplayComponent'"/>
+    <router-link to="/replays/auto">Check automatic replays</router-link>
   </div>
-  <DataPager ref="pager" :endpoint="endpoint" :comp="'ReplayComponent'"/>
-  <router-link to="/replays/auto">Check automatic replays</router-link>
-</div>
 </template>
 
 <script lang="ts">

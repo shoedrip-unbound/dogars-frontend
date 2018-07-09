@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    Note: The site is still under construction and only core features (upload and search) are available.
     <h2>Welcome to the Meme Database</h2>
     Simply, this is a place to submit and view meme sets. If you don't know what this is, lurk moar. That's it. Now go find some memes.
     <h2>Meme of the day</h2>

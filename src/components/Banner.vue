@@ -1,5 +1,5 @@
 <template>
-    <img v-bind:src="link"/>
+  <img v-bind:src="link"/>
 </template>
 
 <script lang="ts">

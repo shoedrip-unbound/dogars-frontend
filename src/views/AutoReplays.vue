@@ -1,7 +1,7 @@
 <template>
-<div id="all">
-  <DataPager :endpoint="'/api/replays/auto'" :comp="'ReplayComponent'"/>
-</div>
+  <div id="autoreplays">
+    <DataPager :endpoint="'/api/replays/auto'" :comp="'ReplayComponent'"/>
+  </div>
 </template>
 
 <script lang="ts">

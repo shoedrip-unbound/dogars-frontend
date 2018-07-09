@@ -1,7 +1,7 @@
 <template>
-<div id="results">
-  <DataPager :endpoint="endpoint" :comp="'SetComponent'" :query="this.$route.query"/>
-</div>
+  <div id="results">
+    <DataPager :endpoint="endpoint" :comp="'SetComponent'" :query="this.$route.query"/>
+  </div>
 </template>
 
 <script lang="ts">

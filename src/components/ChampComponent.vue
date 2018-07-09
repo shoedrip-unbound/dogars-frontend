@@ -1,19 +1,19 @@
 <template>
-    <div class="champ">
-        <img :src="img"/>
-        <hr>
-        <div class="info">
-            <span>{{data.name}}</span><br>
-            <span style="font-weight: bold">{{data.trip}}</span>
-        </div>
-        <hr>
-        <div class="stats">
-            <span style="color: green">{{`Wins: ${data.wins}`}}</span><br>
-            <span style="color: red">{{`Losses: ${data.loses}`}}</span>
-        </div>
-        <hr>
-        <span>{{elo}}</span>
+  <div class="champ">
+    <img :src="img"/>
+    <hr>
+    <div class="info">
+      <span>{{data.name}}</span><br>
+      <span style="font-weight: bold">{{data.trip}}</span>
     </div>
+    <hr>
+    <div class="stats">
+      <span style="color: green">{{`Wins: ${data.wins}`}}</span><br>
+      <span style="color: red">{{`Losses: ${data.loses}`}}</span>
+    </div>
+    <hr>
+    <span>{{elo}}</span>
+  </div>
 </template>
 
 <script lang="ts">

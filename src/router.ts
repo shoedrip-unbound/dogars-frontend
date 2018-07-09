@@ -8,7 +8,6 @@ import Random from './views/Random.vue';
 import All from './views/All.vue';
 import Replays from './views/Replays.vue';
 import AutoReplays from './views/AutoReplays.vue';
-import ComingSoon from './views/ComingSoon.vue';
 import Search from './views/Search.vue';
 import Results from './views/Results.vue';
 import Champs from './views/Champs.vue';

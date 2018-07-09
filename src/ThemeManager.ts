@@ -1,7 +1,7 @@
 let themes: any = {
   Light: {
     oof: '#ececec',
-    content: '#ececec',
+    content: '#ffffff',
     highlight: '#cccccc',
     overlay: '#ececec',
     text: '#2c3e4f'

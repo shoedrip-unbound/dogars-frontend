@@ -1,21 +1,21 @@
 <template>
   <div v-if="data.species && data.species != ''" class="set">
     <h3>
-        <router-link :to="`/set/${data.id}`">{{data.name || data.species}}</router-link>
+      <router-link :to="`/set/${data.id}`">{{data.name || data.species}}</router-link>
     </h3>
     <div id="wrapper">
-        <img :class="{setImage:true, custom: data.has_custom}" :src="imgUrl">
+      <img :class="{setImage:true, custom: data.has_custom}" :src="imgUrl">
     </div>
     <div class="info">
-        <label v-if="data.description">Description: </label>
-        <p v-if="data.description" name="desc">{{data.description}}</p>
-        <label>Date added: </label>
-        <div>{{datestring}}</div>
-        <label v-if="data.creator">Creator: </label>
-        <div v-if="data.creator">{{data.creator}}</div>
-        <label v-if="data.hash">Tripcode: </label>
-        <div v-if="data.hash">{{data.hash}}</div>
-        <label>Format: </label> <div>{{data.format}}</div>
+      <label v-if="data.description">Description: </label>
+      <p v-if="data.description" name="desc">{{data.description}}</p>
+      <label>Date added: </label>
+      <div>{{datestring}}</div>
+      <label v-if="data.creator">Creator: </label>
+      <div v-if="data.creator">{{data.creator}}</div>
+      <label v-if="data.hash">Tripcode: </label>
+      <div v-if="data.hash">{{data.hash}}</div>
+      <label>Format: </label> <div>{{data.format}}</div>
     </div>
     <textarea ref="ta" v-on:focus="focused($event)" v-model="description"></textarea>
     <div v-show="$route.path.match(/\/set/) && data.hash">

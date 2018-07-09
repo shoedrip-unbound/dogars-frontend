@@ -1,10 +1,10 @@
 <template>
-    <input placeholder="Click here to Search..." 
-    id="search"
-    autocomplete="off"
-    v-model="word"
-    v-on:keydown.13="search()"
-    name="q">
+  <input placeholder="Click here to Search..." 
+  id="search"
+  autocomplete="off"
+  v-model="word"
+  v-on:keydown.13="search()"
+  name="q">
 </template>
 
 <script lang="ts">

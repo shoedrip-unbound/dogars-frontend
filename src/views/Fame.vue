@@ -1,7 +1,7 @@
 <template>
-<div id="fame">
-  <DataPager :endpoint="'/api/fame'" :comp="'SetComponent'"/>
-</div>
+  <div id="fame">
+    <DataPager :endpoint="'/api/fame'" :comp="'SetComponent'"/>
+  </div>
 </template>
 
 <script lang="ts">

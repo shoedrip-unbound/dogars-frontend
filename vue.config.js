@@ -16,7 +16,7 @@ let commits = grouped.map(g => {
     subject: g[2],
     message: g[3]
   };
-}).filter(m => !m.message.toLowerCase().includes('merge'));
+}).filter(m => !m.subject.toLowerCase().includes('merge'));
 
 module.exports = {
   runtimeCompiler: true,

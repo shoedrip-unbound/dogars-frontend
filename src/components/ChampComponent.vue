@@ -3,7 +3,7 @@
     <img :src="img"/>
     <hr>
     <div class="info">
-      <span>{{data.name}}</span><br>
+      <span v-html="data.name"></span><br>
       <span style="font-weight: bold">{{data.trip}}</span>
     </div>
     <hr>

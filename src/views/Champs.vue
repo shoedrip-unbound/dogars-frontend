@@ -2,12 +2,13 @@
   <div id="champs">
     <div id="opts">
       <label>Reverse? <input type="checkbox" v-model="reverse"/></label>
-      <select v-on:focus="error = ''" v-model="sort">
-        <option selected value="total">Total battles</option>
-        <option selected value="winratio">Win rate</option>
-        <option selected value="wins">Wins</option>
-        <option selected value="loses">Losses</option>
-        <option selected value="last_seen">Last seen</option>
+      <select @focus="error = ''" v-model="sort">
+        <option value="total">Total battles</option>
+        <option value="winratio">Win rate</option>
+        <option value="wins">Wins</option>
+        <option value="loses">Losses</option>
+        <option value="elo">Elo</option>
+        <option value="last_seen">Last seen</option>
       </select>
     </div>
     <DataPager class="flex" :endpoint="'/api/champs'" :query="$data" :comp="'ChampComponent'"/>

@@ -10,6 +10,10 @@
     <div class="page">
       <component :is="comp" v-for="(data, idx) in dataarr" :key="idx" :data="data"></component>
     </div>
+    <div class="nothing" v-if="dataarr.length == 0">
+      <h1>Wow! There's fucking nothing!</h1>
+      <img src="@/assets/wow.png"/>
+    </div>
   </div>
   <div v-show="!ready">
     <h2>Loading...</h2>
@@ -55,22 +59,26 @@ export default class DataPager extends Vue {
   query!: any;
 
   ready: boolean = false;
-  reload() {
+  async reload() {
     this.ready = false;
     let q = JSON.parse(JSON.stringify(this.query));
-    if (q.spp)
-      this.spp = q.spp;
+    if (q.spp) this.spp = q.spp;
     q.page = this.current;
     q = Object.keys(q)
       .map(k => `${k}=${encodeURIComponent(q[k])}`)
       .join("&");
-    axios.get(`${this.endpoint}?${q}`).then(s => {
+    try {
+      let s = await axios.get<Sets[]>(`${this.endpoint}?${q}`);
       this.total = +s.data[0];
       this.totalp = ~~(this.total / this.spp) + +(this.total % this.spp !== 0);
       this.dataarr = s.data[1];
-      this.ready = true;
-      this.navigate();
-    });
+    } catch (e) {
+      this.total = 0
+      this.totalp = 0;
+      this.dataarr = [];
+    }
+    this.navigate();
+    this.ready = true;
   }
 
   navigate() {
@@ -103,8 +111,8 @@ export default class DataPager extends Vue {
     this.reload();
   }
 
-  @Watch('$props', {deep: true, immediate: false})
-  @Watch('current')
+  @Watch("$props", { deep: true, immediate: false })
+  @Watch("current")
   paramModified() {
     this.reload();
   }
@@ -112,7 +120,11 @@ export default class DataPager extends Vue {
 </script>
 
 <style scoped>
-.flex > div > .page{
+.nothing {
+  text-align: center;
+}
+
+.flex > div > .page {
   display: inline-flex;
   flex-wrap: wrap;
 }

@@ -1,4 +1,4 @@
-console.log(process.env.NODE_ENV);
+let path = require('path');
 let webpack = require('webpack');
 let cp = require('child_process');
 
@@ -35,7 +35,11 @@ module.exports = {
     resolve: {
       modules: [__dirname + '/node_modules/vue-awesome']
     },
-    plugins: [
+    output: {
+      filename: '[name].bundle.js',
+      path: path.resolve(__dirname, 'dist')
+    },
+        plugins: [
       new webpack.DefinePlugin({
         COMMITS: JSON.stringify(commits),
         COMMIT: JSON.stringify(latestcommit),

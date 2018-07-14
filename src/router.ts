@@ -15,6 +15,7 @@ import Cringe from './views/Cringe.vue';
 import Settings from './views/Settings.vue';
 import Contact from './views/Contact.vue';
 import Changelog from './views/Changelog.vue';
+import NotFound from './views/NotFound.vue';
 
 Vue.use(Router);
 
@@ -81,6 +82,9 @@ export default new Router({
       path: '/set/:id',
       name: 'set',
       component: Sets
+    }, {
+      path: '*',
+      component: NotFound
     }
   ]
 });

@@ -10,7 +10,7 @@
     <div class="page">
       <component :is="comp" v-for="(data, idx) in dataarr" :key="idx" :data="data"></component>
     </div>
-    <div class="nothing" v-if="dataarr.length == 0">
+    <div class="nothing" v-if="dataarr && dataarr.length == 0">
       <h1>Wow! There's fucking nothing!</h1>
       <img src="@/assets/wow.png"/>
     </div>

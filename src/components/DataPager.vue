@@ -40,7 +40,7 @@ import { Sets } from "@/Models/Sets";
   }
 })
 export default class DataPager extends Vue {
-  dataarr: any = null;
+  dataarr: Sets[] = [];
   current: number = 1;
   total: number = 0;
   spp: number = 15;
@@ -68,7 +68,7 @@ export default class DataPager extends Vue {
       .map(k => `${k}=${encodeURIComponent(q[k])}`)
       .join("&");
     try {
-      let s = await axios.get<Sets[]>(`${this.endpoint}?${q}`);
+      let s = await axios.get<[number, Sets[]]>(`${this.endpoint}?${q}`);
       this.total = +s.data[0];
       this.totalp = ~~(this.total / this.spp) + +(this.total % this.spp !== 0);
       this.dataarr = s.data[1];

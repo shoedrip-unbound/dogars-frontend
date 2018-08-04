@@ -24,4 +24,5 @@ Todo
 - Maybe bring back lillie
 - Fix possible bugs:
     - Quick Search from Chrom* omnibar
+    - Database dump doesn't work but that's a server side issue
 Write a better CSS for phones.

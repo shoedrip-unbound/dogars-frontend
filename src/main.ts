@@ -1,6 +1,6 @@
 import Component from 'vue-class-component';
 
-import Vue from 'vue';
+import Vue, { PluginFunction, PluginObject } from 'vue';
 import App from './App.vue';
 import router from './router';
 import './registerServiceWorker';
@@ -26,6 +26,7 @@ import 'vue-awesome/icons/angle-right';
 import 'vue-awesome/icons/angle-double-right';
 
 import Icon from 'vue-awesome/components/Icon';
+import CheckboxRadio from 'vue-checkbox-radio';
 
 import { init } from './ThemeManager';
 
@@ -35,14 +36,15 @@ Component.registerHooks([
   'beforeRouteUpdate'
 ]);
 Vue.component('icon', Icon);
+Vue.use(CheckboxRadio);
 
 axios.defaults.baseURL = settings.domain;
 
 Vue.config.productionTip = false;
 
-init();
-
-let v = new Vue({
+export let root = new Vue({
   router,
   render: h => h(App)
 }).$mount('#app');
+
+init();

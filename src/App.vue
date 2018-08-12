@@ -8,6 +8,7 @@
       <router-view/>
     </div>
     <Bottom/>
+    <Waifu ref="waifu"/>
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import NavBar from "@/components/NavBar.vue";
 import Bottom from "@/components/Bottom.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import ChampPog from "@/components/ChampPog.vue";
+import Waifu from "@/components/Waifu.vue";
 
 @Component({
   components: {
@@ -25,7 +27,8 @@ import ChampPog from "@/components/ChampPog.vue";
     NavBar,
     SearchBar,
     ChampPog,
-    Bottom
+    Bottom,
+    Waifu
   }
 })
 export default class App extends Vue {}
@@ -45,7 +48,6 @@ body {
 
   /* Used for hovering */
   --highlight: #cccccc;
-  --overlay: #ececec;
 
   /* Obvious */
   --text: #2c3e4f;

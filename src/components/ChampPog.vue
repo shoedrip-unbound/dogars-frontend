@@ -2,7 +2,7 @@
   <a v-if="currentChamp.active" class="current" :href="currentChamp.current_battle">
     <img :src="img"/>
     <hr>
-    <div>{{currentChamp.name}}</div>
+    <div v-html="currentChamp.name"></div>
     <div><b>{{currentChamp.trip}}</b></div>
   </a>
 </template>

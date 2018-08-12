@@ -6,6 +6,9 @@ declare module '*.vue' {
 declare module 'vue-awesome';
 declare module 'vue-awesome/*';
 
+declare module 'vue-checkbox-radio';
+declare module 'vue-color';
+
 declare let REMOTE: string;
 declare let VERSION: string;
 declare let COMMIT: string;

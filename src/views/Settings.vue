@@ -1,25 +1,58 @@
 <template>
   <div id="settings">
     <p>Build #{{version}} ({{commit}})</p>
-    <h2>Theme</h2>
+    <h2>Theme ({{stheme}})</h2>
     <div v-for="theme in themes" :key="theme">
-      <label>{{theme}}<input v-model="stheme" :value="theme" type="radio"></label>
+      <label>{{theme}}<radio class="inlined" v-model="stheme" :value="theme"></radio></label>
     </div>
-    <h2>Waifu</h2>
+    <label>Custom<radio class="inlined" v-model="stheme" :value="'Custom'"></radio></label>
+    <div class="selectcontainer" v-if="stheme == 'Custom'">
+      <div v-for="prop in keyprops" :key="prop">
+        {{props[prop]}}<radio class="inlined" v-model="customizing" :value="prop"></radio>
+      </div>
+      <chrome v-model="custom[customizing]"></chrome>
+    </div>
+    <h2>Waifu ({{swaifu}})</h2>
     <div v-for="waifu in waifus" :key="waifu">
-      <label>{{waifu}}<input v-model="swaifu" :value="waifu" type="radio"></label>
+      <label>{{waifu}}<radio class="inlined" v-model="swaifu" :value="waifu"></radio></label>
     </div>
+    <label>Custom<radio class="inlined" v-model="swaifu" :value="'Custom'"></radio></label>
+    <div v-if="swaifu == 'Custom'">URL: <input v-model="wurl"></div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import DataPager from "@/components/DataPager.vue";
-import { getCurrentTheme, loadTheme } from "@/ThemeManager.ts";
+import {
+  getCurrentTheme,
+  loadTheme,
+  themeProps,
+  themeProp,
+  loadedTheme,
+  loadWaifu,
+  getCurrentWaifu
+} from "@/ThemeManager.ts";
+import { Chrome } from "vue-color";
+import Waifu from "@/components/Waifu.vue";
+import { settings } from "@/settings";
 
+let waifuToURL: { [k: string]: string } = {
+  Lillie: `${settings.domain}/lillie2.png`,
+  Moon: `${settings.domain}/moon.png`
+};
+
+function getCurrentWaifuName(url: string): string {
+  if (!url) return "None";
+  for (let i in waifuToURL) if (url == waifuToURL[i]) return i;
+  return "Custom";
+}
+
+type color = { hex?: string };
 @Component({
   components: {
-    DataPager
+    DataPager,
+    Chrome
   }
 })
 export default class Settings extends Vue {
@@ -27,13 +60,65 @@ export default class Settings extends Vue {
   commit = COMMIT;
   themes = ["Light", "Dark"];
   waifus = ["None", "Lillie", "Moon"];
-
+  props = {
+    oof: "Background",
+    content: "Foreground",
+    highlight: "Highlight",
+    text: "Text"
+  };
+  keyprops = Object.keys(this.props);
+  customizing = "oof";
   stheme: string = getCurrentTheme();
-  swaifu: string = "None";
+  wurl: string = getCurrentWaifu();
+  swaifu: string = getCurrentWaifuName(this.wurl);
 
-  @Watch('stheme')
+  custom: any = {
+    oof: {},
+    text: {},
+    content: {},
+    highlight: {}
+  };
+
+  created() {}
+
+  initCustom() {
+    this.custom.oof.hex = loadedTheme.oof!;
+    this.custom.content.hex = loadedTheme.content!;
+    this.custom.highlight.hex = loadedTheme.highlight!;
+    this.custom.text.hex = loadedTheme.text!;
+  }
+
+  @Watch("custom", { deep: true })
+  customChanged(newValue: string) {
+    let keys = Object.keys(loadedTheme).forEach((k: string) => {
+      let p = k as themeProp;
+      loadedTheme[p] = this.custom[p].hex;
+    });
+    loadTheme(loadedTheme);
+  }
+
+  @Watch("stheme")
   reloadTheme(newName: string) {
+    if (newName == "Custom") return this.initCustom();
     loadTheme(newName);
+  }
+
+  @Watch("wurl")
+  reloadUrlWaify(newName: string) {
+    loadWaifu(newName);
+  }
+
+  @Watch("swaifu")
+  reloadWaifu(newName: string) {
+    if (newName == "Custom") return;
+    let url = waifuToURL[newName];
+    loadWaifu(url);
   }
 }
 </script>
+
+<style scoped>
+.inlined {
+  display: inline;
+}
+</style>

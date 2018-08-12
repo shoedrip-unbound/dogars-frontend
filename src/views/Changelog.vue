@@ -1,12 +1,12 @@
 <template>
   <div id="changelog">
     <h2>Client</h2>
-    <div v-for="ent in clientChanges" :key="ent">
+    <div v-for="ent in clientChanges" :key="ent.date">
       <p>({{new Date(ent.date).toLocaleDateString()}}) {{ent.subject}}</p>
       <p v-if="ent.message">{{ent.message}}</p>
     </div>
     <h2 v-if="serverChanges">Server</h2>
-    <div v-for="ent in serverChanges" :key="ent">
+    <div v-for="ent in serverChanges" :key="ent.date">
       <p>({{new Date(ent.date).toLocaleDateString()}}) {{ent.subject}}</p>
       <p v-if="ent.message">{{ent.message}}</p>
     </div>

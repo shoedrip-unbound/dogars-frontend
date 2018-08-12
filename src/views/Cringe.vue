@@ -9,9 +9,9 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import * as SockJS from "sockjs-client";
-
 import CringeComponent from "@/components/CringeComponent.vue";
 import InfinityViewer from "@/components/InfinityViewer.vue";
+import { settings } from '@/settings';
 
 let range = (min: number, max?: number) => {
   let ret = [];
@@ -41,7 +41,7 @@ let range = (min: number, max?: number) => {
 export default class Cringe extends Vue {
   cringe: number[] = [1, 2, 3];
   maxed: boolean = false;
-  sock: WebSocket = new SockJS("https://dogars.ml/cringep");
+  sock: WebSocket = new SockJS(`${settings.domain}/cringep`);
 
   newest = 0;
   oldest = 0;
@@ -55,7 +55,6 @@ export default class Cringe extends Vue {
 
   created() {
     this.sock.onmessage = ev => {
-      console.log(ev);
       let npics = JSON.parse(ev.data);
       this.newest = npics;
       if (!this.inited) {

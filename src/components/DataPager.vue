@@ -127,5 +127,6 @@ export default class DataPager extends Vue {
 .flex > div > .page {
   display: inline-flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 </style>

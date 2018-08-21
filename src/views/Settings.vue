@@ -43,7 +43,7 @@ let waifuToURL: { [k: string]: string } = {
 };
 
 function getCurrentWaifuName(url: string): string {
-  if (!url) return "None";
+  if (!url || url == 'None') return "None";
   for (let i in waifuToURL) if (url == waifuToURL[i]) return i;
   return "Custom";
 }
@@ -117,7 +117,7 @@ export default class Settings extends Vue {
 }
 </script>
 
-<style scoped>
+<style>
 .inlined {
   display: inline;
 }

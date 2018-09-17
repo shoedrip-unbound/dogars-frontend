@@ -10,6 +10,7 @@ declare module 'vue-checkbox-radio';
 declare module 'vue-color';
 
 declare let REMOTE: string;
+declare let PROD: string;
 declare let VERSION: string;
 declare let COMMIT: string;
 declare let COMMITS: {

@@ -1,3 +1,3 @@
 export let settings = {
-    domain: REMOTE
+    domain: `${location.protocol}//${location.hostname}${PROD ? '' : ':1234'}`
 };

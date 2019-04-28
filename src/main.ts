@@ -3,7 +3,6 @@ import Component from 'vue-class-component';
 import Vue, { PluginFunction, PluginObject } from 'vue';
 import App from './App.vue';
 import router from './router';
-import './registerServiceWorker';
 import axios from 'axios';
 import { settings } from '@/settings';
 

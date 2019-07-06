@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "register-service-worker": "^1.0.0",
     "sockjs-client": "^1.1.5",
     "vue": "^2.5.16",
     "vue-awesome": "^3.0.3",

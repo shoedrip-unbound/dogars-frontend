@@ -1,5 +1,5 @@
 <template>
-  <SetComponent v-bind:data="set"/>
+  <SetComponent v-bind:data="set" />
 </template>
 
 <script lang="ts">
@@ -17,17 +17,17 @@ export default class Set extends Vue {
   set: any = {};
 
   created() {
-    let id = this.$route.params.id;
-    axios.get(`/api/sets/${id}`).then(s => {
-      this.set = s.data;
-    });
+    this.refresh(this.$route);
   }
 
-  refresh(route: this["$route"]) {
+  async refresh(route: this["$route"]) {
     let id = route.params.id;
-    axios.get(`/api/sets/${id}`).then(s => {
-      this.set = s.data;
-    });
+    try {
+      let req = await axios.get(`/api/sets/${id}`);
+      this.set = req.data;
+    } catch(e) {
+      this.$router.push('/');
+    }
   }
 
   @Watch("$route")

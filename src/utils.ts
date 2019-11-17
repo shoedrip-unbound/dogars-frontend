@@ -1,5 +1,6 @@
 import { Sets } from '@/Models/Sets';
 import { settings } from '@/settings';
+import axios from "axios";
 
 export let toId = (text: any) => {
     // this is a duplicate of Dex.getId, for performance reasons
@@ -19,7 +20,16 @@ let getNormalizedUniqueName = (species: string) => {
     return `${toId(species.substr(0, h).toLowerCase())}-${toId(species.substr(h + 1))}`;
 };
 
-export function getPokemonImage(mset: Sets, shiny?: boolean) {
+let testimg = (url: string) => {
+    return new Promise((res, rej) => {
+        let img = new Image();
+        img.onload = res;
+        img.onerror = rej;
+        img.src = url;
+    });
+}
+
+export async function getPokemonImage(mset: Sets, shiny?: boolean) {
     if (!mset)
         return '';
     if (!mset.species)
@@ -27,7 +37,13 @@ export function getPokemonImage(mset: Sets, shiny?: boolean) {
     if (mset.has_custom) {
         return `${settings.domain}/api/custom/${mset.id}`;
     }
-    return `https://play.pokemonshowdown.com/sprites/xyani${(mset.shiny && '-shiny') || ''}/${getNormalizedUniqueName(mset.species)}.gif`;
+    let url = `https://play.pokemonshowdown.com/sprites/xyani${(mset.shiny && '-shiny') || ''}/${getNormalizedUniqueName(mset.species)}.gif`;
+    try {
+        await testimg(url);
+        return url;
+    } catch (e) {
+        return `https://play.pokemonshowdown.com/sprites/gen5${(mset.shiny && '-shiny') || ''}/${getNormalizedUniqueName(mset.species)}.png`
+    }
 }
 
 export function setToString(mset: Sets): string {

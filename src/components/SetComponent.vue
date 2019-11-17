@@ -78,10 +78,10 @@ export default class SetComponent extends Vue {
     ta.select();
   }
 
-  reload() {
+  async reload() {
     let k = new Date(+this.data.date_added!);
     this.datestring = k.toDateString();
-    this.imgUrl = getPokemonImage(this.data);
+    this.imgUrl = await getPokemonImage(this.data);
     this.description = setToString(this.data);
     let tab = this.$refs["ta"];
     if (!tab) return;
@@ -89,12 +89,12 @@ export default class SetComponent extends Vue {
     ta.rows = this.description.split("\n").length;
   }
 
-  beforeUpdate() {
-    this.reload();
+  async beforeUpdate() {
+    await this.reload();
   }
 
-  mounted() {
-    this.reload();
+  async mounted() {
+    await this.reload();
   }
 
   arbitrary: any;
@@ -108,7 +108,7 @@ export default class SetComponent extends Vue {
     } else {
       if (elem.textContent) {
         try {
-          let res = await axios.delete<{ success: boolean }>(
+          let res = await axios.delete(
             `/api/sets/${this.data.id}`,
             {
               data: {
@@ -173,13 +173,13 @@ export default class SetComponent extends Vue {
     if (desc.textContent!.length >= 650) e.preventDefault();
   }
 
-  updated() {
-    this.reload();
+  async updated() {
+    await this.reload();
   }
 
   @Watch("data")
-  obsData() {
-    this.reload();
+  async obsData() {
+    await this.reload();
   }
 }
 </script>

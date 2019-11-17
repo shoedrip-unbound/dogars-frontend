@@ -21,6 +21,8 @@
         <option value="gen7almostanyability">[Gen 7] Almost Any Ability</option>
         <option value="gen7camomons">[Gen 7] Camomons</option>
         <option value="gen7stabmons">[Gen 7] STABmons</option>
+        <option value="gen8oubeta">[Gen 8] OU (beta)</option>
+        <option value="gen8doublesoubeta">[Gen 8] Doubles OU (beta)</option>
         <option value="gen7customgame">Disable checks</option>
       </select>
     </div>

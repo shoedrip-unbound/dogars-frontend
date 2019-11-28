@@ -1,28 +1,20 @@
 <template>
   <div>
     <div id="importform">
-      <label>Set:</label><textarea v-on:focus="error = ''" v-model="set"></textarea>
-      <label>Description:</label><textarea v-model="desc"></textarea>
-      <label>Creator:</label><input v-model="creat"/>
-      <label>Tripcode:</label><input v-model="trip"/>
+      <label>Set:</label>
+      <textarea v-on:focus="error = ''" v-model="set"></textarea>
+      <label>Description:</label>
+      <textarea v-model="desc"></textarea>
+      <label>Creator:</label>
+      <input v-model="creat" />
+      <label>Tripcode:</label>
+      <input v-model="trip" />
       <label>Format:</label>
       <select v-on:focus="error = ''" v-model="format">
-        <option selected value="gen7ou">[Gen 7] OU</option>
-        <option value="gen7ubers">[Gen 7] Ubers</option>
-        <option value="gen7anythinggoes">[Gen 7] Anything Goes</option>
-        <option value="gen7uu">[Gen 7] UU</option>
-        <option value="gen7ru">[Gen 7] RU</option>
-        <option value="gen7nu">[Gen 7] NU</option>
-        <option value="gen7pu">[Gen 7] PU</option>
-        <option value="gen7lc">[Gen 7] LC</option>
-        <option value="gen7natureswap">[Gen 7] Nature Swap</option>
-        <option value="gen7balancedhackmons">[Gen 7] Balanced Hackmons</option>
-        <option value="gen7mixandmega">[Gen 7] Mix and Mega</option>
-        <option value="gen7almostanyability">[Gen 7] Almost Any Ability</option>
-        <option value="gen7camomons">[Gen 7] Camomons</option>
-        <option value="gen7stabmons">[Gen 7] STABmons</option>
-        <option value="gen8oubeta">[Gen 8] OU (beta)</option>
-        <option value="gen8doublesoubeta">[Gen 8] Doubles OU (beta)</option>
+        <optgroup v-for="group in groups" :key="group.value" :label="group.value">
+          <option v-for="opt in group.child" :key="opt.id" :value="opt.id">{{opt.name}}</option>
+        </optgroup>
+
         <option value="gen7customgame">Disable checks</option>
       </select>
     </div>
@@ -36,15 +28,35 @@ import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 import { Sets } from "@/Models/Sets";
 
+type Format = { id: string; name: string; section: string };
+
 @Component
 export default class Import extends Vue {
   set: string = "";
   desc: string = "";
   creat: string = "";
   trip: string = "";
-  format: string = "gen7ou";
+  format: string = "gen8ou";
   error: string = "";
   submitting: boolean = false;
+  data: { [k in string]: Format } = {};
+  groups: { [k in string]: { value: string; child: Format[] } } = {};
+
+  async created() {
+    let res = await axios.get<this["data"]>("/api/formats");
+    let data = res.data;
+    let grouplist = new Set(Object.keys(data).map(e => data[e].section));
+    this.groups = {};
+    for (let g of grouplist) {
+      console.log(g)
+      this.groups[g] = {
+        child: Object.values(data).filter(e => e.section == g),
+        value: g
+      };
+    }
+    this.format = "gen8ou";
+  }
+
   async submit() {
     try {
       this.submitting = true;

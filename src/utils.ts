@@ -1,4 +1,4 @@
-import { Sets } from '@/Models/Sets';
+import { Sets, Moves } from '@/Models/Sets';
 import { settings } from '@/settings';
 import axios from "axios";
 
@@ -52,21 +52,21 @@ export function setToString(mset: Sets): string {
         res += `${mset.name} (${mset.species})`;
     else
         res += mset.species;
-    if (mset.gender && mset.gender != '')
+    if (mset.gender && mset.gender != '' && mset.gender != 'N')
         res += ` (${mset.gender})`;
     if (mset.item && mset.item != '')
         res += ` @ ${mset.item}`;
     res += `\nAbility: ${mset.ability}\n`;
     if (mset.level && mset.level != 100)
         res += `Level: ${mset.level}\n`;
-    if (mset.shiny && mset.shiny !== 0)
+    if (mset.shiny)
         res += 'Shiny: Yes\n';
 
     if (mset.happiness !== undefined && mset.happiness !== null && mset.happiness! < 255)
         res += `Happiness: ${mset.happiness}\n`;
     let buildstr = (t: string, f: number = 0) => ['HP', 'Atk', 'Def', 'SpA', 'SpD', 'Spe']
-        .filter(s => mset[`${s.toLowerCase()}_${t}`] != f)
-        .map(s => mset[`${s.toLowerCase()}_${t}`] + ' ' + s)
+        .filter(s => mset[`${s.toLowerCase()}_${t}` as keyof Sets] != f)
+        .map(s => mset[`${s.toLowerCase()}_${t}` as keyof Sets] + ' ' + s)
         .join(' / ');
 
     let evstr = buildstr('ev');
@@ -80,9 +80,9 @@ export function setToString(mset: Sets): string {
     if (ivstr != '')
         res += `IVs: ${ivstr}\n`;
     res += [1, 2, 3, 4]
-        .map(d => 'move_' + d)
+        .map(d => 'move_' + d as keyof Moves)
         .filter(n => mset[n])
-        .map(n => '- ' + mset[n])
+        .map(n => `- ${mset[n]}`)
         .join('\n');
 
     return res;

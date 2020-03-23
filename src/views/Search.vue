@@ -7,6 +7,7 @@
             <div style="display: contents;"><span>(</span><input placeholder="Species" v-model="species"/><span>)@</span></div>
             <input placeholder="Item" v-model="item"/>
           </div>
+          <label>Level: </label><input v-model="level"/>
           <label>Ability: </label><input v-model="ability"/>
           <label>- </label><input v-model="move_1"/>
           <label>- </label><input v-model="move_2"/>
@@ -37,6 +38,7 @@ export default class Search extends Vue {
   move_3: string = "";
   // eslint-disable-next-line
   move_4: string = "";
+  level: string = "";
   creator: string = "";
   hash: string = "";
   [key: string]: any;

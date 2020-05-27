@@ -38,7 +38,7 @@ module.exports = {
         COMMIT: JSON.stringify(latestcommit),
         VERSION: JSON.stringify(commitCount),
         PROD: '' + process.env.NODE_ENV == 'production',
-        REMOTE: JSON.stringify(process.env.NODE_ENV == 'production' ? 'https://dogars.ml' : 'http://127.0.0.1:1234')
+        REMOTE: JSON.stringify(process.env.NODE_ENV == 'production' ? 'https://dogars.ga' : 'http://127.0.0.1:1234')
       })
     ]
   }

@@ -23,7 +23,7 @@
 
     <div>
       <icon name="envelope"></icon>
-      <a href="mail-to:shoedrip-unbound@dogars.ml">Email</a>
+      <a href="mail-to:shoedrip-unbound@dogars.ga">Email</a>
     </div>
     <div>
       <icon name="search"></icon>

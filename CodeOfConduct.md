@@ -1,3 +1,3 @@
-![Miracle of the Universe](https://dogars.ml/lillie-pouting.png)
+![Miracle of the Universe](https://dogars.ga/lillie-pouting.png)
 
 NO BULLYING ALLOWED

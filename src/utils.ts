@@ -17,6 +17,8 @@ let getNormalizedUniqueName = (species: string) => {
     let h = species.indexOf('-');
     if (h == -1)
         return toId(species);
+    if (species.toLowerCase() == "kommo-o")
+        return "kommoo";
     return `${toId(species.substr(0, h).toLowerCase())}-${toId(species.substr(h + 1))}`;
 };
 

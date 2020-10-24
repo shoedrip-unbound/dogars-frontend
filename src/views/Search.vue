@@ -15,6 +15,15 @@
           <label>- </label><input v-model="move_4"/>
           <label>Creator: </label><input v-model="creator"/>
           <label>Tripcode: </label><input v-model="hash"/>
+          <label>Format:</label>
+          <select v-on:focus="error = ''" v-model="format">
+            <option value="">Any format</option>
+            <option value="ou">Any OU</option>
+            <option value="doubles">Any Doubles</option>
+            <optgroup v-for="group in groups" :key="group.value" :label="group.value">
+              <option v-for="opt in group.child" :key="opt.id" :value="opt.id">{{opt.name}}</option>
+            </optgroup>
+          </select>
           <input type="submit">
       </form>
   </div>
@@ -23,6 +32,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
+
+type Format = { id: string; name: string; section: string };
 
 @Component
 export default class Search extends Vue {
@@ -41,14 +52,34 @@ export default class Search extends Vue {
   level: string = "";
   creator: string = "";
   hash: string = "";
+  format: string = "";
+  data: { [k in string]: Format } = {};
+  groups: { [k in string]: { value: string; child: Format[] } } = {};
+
   [key: string]: any;
 
   search() {
     let q = JSON.parse(JSON.stringify(this.$data));
+    for (let o in q) {
+      if (q[o] == "" || Object.keys(q[o]).length == 0)
+        delete q[o];
+    }
     this.$router.push({ path: "/results", query: q });
   }
 
-  created() {
+  async created() {
+    let res = await axios.get<this["data"]>("/api/formats");
+    let data = res.data;
+    let grouplist = new Set(Object.keys(data).map(e => data[e].section));
+    this.groups = {};
+    for (let g of grouplist) {
+      this.groups[g] = {
+        child: Object.values(data).filter(e => e.section == g),
+        value: g
+      };
+    }
+    this.format = "";
+
     let q = this.$route.query.q;
     if (q) this.$router.replace({ path: "/results", query: { q } });
   }

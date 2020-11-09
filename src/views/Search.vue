@@ -15,6 +15,8 @@
           <label>- </label><input v-model="move_4"/>
           <label>Creator: </label><input v-model="creator"/>
           <label>Tripcode: </label><input v-model="hash"/>
+          <label>Random pick?:</label>
+          <input type="checkbox" v-model="random"/>
           <label>Format:</label>
           <select v-on:focus="error = ''" v-model="format">
             <option value="">Any format</option>
@@ -55,7 +57,7 @@ export default class Search extends Vue {
   format: string = "";
   data: { [k in string]: Format } = {};
   groups: { [k in string]: { value: string; child: Format[] } } = {};
-
+  random: boolean = false;
   [key: string]: any;
 
   search() {

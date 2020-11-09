@@ -2,7 +2,7 @@
   <div id="app">
     <ChampPog/>
     <Banner/>
-    <SearchBar/>
+    <SearchBar v-model="word"/>
     <NavBar/>
     <div class="content">
       <router-view/>
@@ -31,7 +31,9 @@ import Waifu from "@/components/Waifu.vue";
     Waifu
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  word: string = "sdfsd"
+}
 </script>
 
 <style>

@@ -32,7 +32,7 @@ import Waifu from "@/components/Waifu.vue";
   }
 })
 export default class App extends Vue {
-  word: string = "sdfsd"
+  word: string = ""
 }
 </script>
 

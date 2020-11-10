@@ -63,9 +63,11 @@ export default class Search extends Vue {
   search() {
     let q = JSON.parse(JSON.stringify(this.$data));
     for (let o in q) {
-      if (q[o] == "" || Object.keys(q[o]).length == 0)
+      if (q[o] == "" || Object.keys(q[o]).length === 0)
         delete q[o];
     }
+    delete q.groups;
+    q.random = this.random;
     this.$router.push({ path: "/results", query: q });
   }
 
@@ -83,7 +85,7 @@ export default class Search extends Vue {
     this.format = "";
 
     let q = this.$route.query.q;
-    if (q) this.$router.replace({ path: "/results", query: { q } });
+    if (q) this.$router.replace({ path: "/results", query: this.$route.query });
   }
 }
 </script>

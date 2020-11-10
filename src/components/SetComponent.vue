@@ -1,142 +1,147 @@
 <template>
   <div v-if="data.species && data.species != ''" class="set">
     <h3>
-      <router-link :to="`/set/${data.id}`">{{data.name || data.species}}</router-link>
+      <router-link :to="`/set/${data.id}`">{{
+        data.name || data.species
+      }}</router-link>
     </h3>
     <div class="wrapper">
-      <img :class="{setImage:true, custom: data.has_custom}" :src="imgUrl" />
+      <img :class="{ setImage: true, custom: data.has_custom }" :src="imgUrl" />
     </div>
     <table>
-      <tbody :class="{editing: this.editing || this.deleting}" ref="troot">
+      <tbody :class="{ editing: this.editing || this.deleting }" ref="troot">
         <tr v-if="data.description">
           <th scope="row" align="right">Description</th>
-          <td ref="desc" :contenteditable="this.editing" @keydown="checkLength">{{data.description}}</td>
+          <td ref="desc" :contenteditable="this.editing" @keydown="checkLength">
+            {{ data.description }}
+          </td>
         </tr>
         <tr>
           <th scope="row" align="right">Date added</th>
-          <td>{{datestring}}</td>
+          <td>{{ datestring }}</td>
         </tr>
         <tr v-if="data.creator">
           <th scope="row" align="right">Creator</th>
-          <td>{{data.creator}}</td>
+          <td>{{ data.creator }}</td>
         </tr>
         <tr v-if="data.hash">
-          <th scope="row" align="right">Tripcode</th>
+          <th ref="tripdisp" scope="row" align="right">Tripcode</th>
           <td
             ref="trip"
+            @input="reprintTrip()"
             :contenteditable="this.editing || this.deleting"
             placeholder="Verify your trip..."
-          >{{data.hash}}</td>
+          >
+            {{ data.hash }}
+          </td>
         </tr>
         <tr>
           <th scope="row" align="right">Format</th>
-          <td>{{data.format}}</td>
+          <td>{{ data.format }}</td>
         </tr>
       </tbody>
     </table>
-    <textarea ref="ta" v-on:focus="focused($event)" v-model="description"></textarea>
+    <textarea
+      ref="ta"
+      v-on:focus="focused($event)"
+      v-model="description"
+    ></textarea>
     <div v-show="$route.path.match(/\/set/) && data.hash">
-      <button
-        ref="butt"
-        :disabled="this.deleting"
-        @click="toggleEdit()"
-      >{{!this.editing ? "Update" : "Done?"}}</button>
-      <button
-        ref="dbutt"
-        :disabled="this.editing"
-        @click="toggleDelete()"
-      >{{!this.deleting ? "Delete" : "Done?"}}</button>
+      <button ref="butt" :disabled="this.deleting" @click="toggleEdit()">
+        {{ !this.editing ? 'Update' : 'Done?' }}
+      </button>
+      <button ref="dbutt" :disabled="this.editing" @click="toggleDelete()">
+        {{ !this.deleting ? 'Delete' : 'Done?' }}
+      </button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Provide, Watch } from "vue-property-decorator";
-import { Sets } from "@/Models/Sets";
-import { getPokemonImage, setToString } from "../utils";
-import axios from "axios";
+import { Component, Prop, Vue, Provide, Watch } from 'vue-property-decorator'
+import { Sets } from '@/Models/Sets'
+import { getPokemonImage, setToString } from '../utils'
+import axios from 'axios'
 
 let tgl = (elem: Element) => {
-  if (elem.hasAttribute("contenteditable"))
-    elem.removeAttribute("contenteditable");
-  else elem.setAttribute("contenteditable", "true");
-};
+  if (elem.hasAttribute('contenteditable'))
+    elem.removeAttribute('contenteditable')
+  else elem.setAttribute('contenteditable', 'true')
+}
 
 @Component
 export default class SetComponent extends Vue {
   @Prop({ required: true })
-  data!: any;
+  data!: any
 
-  datestring: string = "";
-  imgUrl: string = "";
-  description = "";
-  editing = false;
-  deleting = false;
+  datestring: string = ''
+  imgUrl: string = ''
+  description = ''
+  editing = false
+  deleting = false
 
   focused(ev: FocusEvent) {
-    let ta = ev.srcElement! as HTMLTextAreaElement;
-    ta.select();
+    let ta = ev.srcElement! as HTMLTextAreaElement
+    ta.select()
   }
 
   async reload() {
-    let k = new Date(+this.data.date_added!);
-    this.datestring = k.toDateString();
-    this.imgUrl = await getPokemonImage(this.data);
-    this.description = setToString(this.data);
-    let tab = this.$refs["ta"];
-    if (!tab) return;
-    let ta = tab as HTMLTextAreaElement;
-    ta.rows = this.description.split("\n").length;
+    let k = new Date(+this.data.date_added!)
+    this.datestring = k.toDateString()
+    this.imgUrl = await getPokemonImage(this.data)
+    if (!this.editing) this.description = setToString(this.data)
+    let tab = this.$refs['ta']
+    if (!tab) return
+    let ta = tab as HTMLTextAreaElement
+    ta.rows = this.description.split('\n').length
+    ;(this.$refs.tripdisp as HTMLTableDataCellElement).innerText = 'Tripcode'
   }
 
   async beforeUpdate() {
-    await this.reload();
+    await this.reload()
   }
 
   async mounted() {
-    await this.reload();
+    await this.reload()
   }
 
-  arbitrary: any;
+  arbitrary: any
 
   async toggleDelete() {
-    let elem = this.$refs["trip"] as Element;
+    let elem = this.$refs['trip'] as Element
 
     if (!this.deleting) {
-      this.arbitrary = elem.textContent;
-      elem.textContent = "";
+      this.arbitrary = elem.textContent
+      elem.textContent = ''
     } else {
       if (elem.textContent) {
         try {
-          let res = await axios.delete(
-            `/api/sets/${this.data.id}`,
-            {
-              data: {
-                id: this.data.id,
-                trip: elem.textContent
-              }
-            }
-          );
-          this.$router.push("/");
+          let res = await axios.delete(`/api/sets/${this.data.id}`, {
+            data: {
+              id: this.data.id,
+              trip: elem.textContent,
+            },
+          })
+          this.$router.push('/')
         } catch (e) {
-          elem.textContent = "Something went wrong ;)";
+          elem.textContent = 'Something went wrong ;)'
         }
-      } else elem.textContent = this.arbitrary["trip"];
+      } else elem.textContent = this.arbitrary['trip']
     }
-    this.deleting = !this.deleting;
+    this.deleting = !this.deleting
   }
 
   async toggleEdit() {
-    let desc = this.$refs["desc"] as Element;
-    let elem = this.$refs["trip"] as Element;
+    let desc = this.$refs['desc'] as Element
+    let elem = this.$refs['trip'] as Element
 
     if (!this.editing) {
       this.arbitrary = {
         trip: elem.textContent,
         desc: desc.textContent,
-        set: this.description
-      };
-      elem.textContent = "";
+        set: this.description,
+      }
+      elem.textContent = ''
     } else {
       if (elem.textContent) {
         // user wants to update
@@ -147,39 +152,42 @@ export default class SetComponent extends Vue {
               id: this.data.id,
               desc: desc.textContent,
               set: this.description,
-              trip: elem.textContent
-            }
-          );
+              trip: elem.textContent,
+            },
+          )
           // successful, hide the trip
-          elem.textContent = this.arbitrary["trip"];
+          elem.textContent = this.arbitrary['trip']
         } catch (e) {
           // something failed, reset fields
-          elem.textContent = "Something went wrong ;)";
-          desc.textContent = this.arbitrary["desc"];
-          this.description = this.arbitrary["set"];
+          elem.textContent = 'Something went wrong ;)'
+          desc.textContent = this.arbitrary['desc']
+          this.description = this.arbitrary['set']
         }
       } else {
         // operation aborted
-        desc.textContent = this.arbitrary["desc"];
-        elem.textContent = this.arbitrary["trip"];
-        this.description = this.arbitrary["set"];
+        desc.textContent = this.arbitrary['desc']
+        elem.textContent = this.arbitrary['trip']
+        this.description = this.arbitrary['set']
       }
     }
-    this.editing = !this.editing;
+    this.editing = !this.editing
+  }
+
+  async reprintTrip() {
+    const v = (this.$refs.trip as HTMLInputElement).innerText
+    let res = await axios.post<string>('/api/trip', {
+      v,
+    });
+    (this.$refs.tripdisp as HTMLTableDataCellElement).innerText = res.data;
   }
 
   checkLength(e: Event) {
-    let desc = this.$refs["desc"] as Element;
-    if (desc.textContent!.length >= 650) e.preventDefault();
+    let desc = this.$refs['desc'] as Element
+    if (desc.textContent!.length >= 650) e.preventDefault()
   }
 
   async updated() {
-    await this.reload();
-  }
-
-  @Watch("data")
-  async obsData() {
-    await this.reload();
+    await this.reload()
   }
 }
 </script>
@@ -190,7 +198,7 @@ export default class SetComponent extends Vue {
   margin: 0 auto 0 auto;
 }
 
-[contenteditable="true"]:empty:before {
+[contenteditable='true']:empty:before {
   content: attr(placeholder);
   display: block;
 }
@@ -212,7 +220,7 @@ button:last-of-type {
   float: right;
 }
 
-.editing [contenteditable="true"] {
+.editing [contenteditable='true'] {
   background-color: var(--oof);
 }
 

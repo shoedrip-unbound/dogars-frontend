@@ -33,7 +33,7 @@ let testimg = (url: string) => {
 
 let image_exists = async (url: string) => {
     try {
-        testimg(url);
+        await testimg(url);
         return true;
     } catch {
         return false;

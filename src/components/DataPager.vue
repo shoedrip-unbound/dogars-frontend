@@ -50,6 +50,7 @@ import { Sets } from '@/Models/Sets'
 export default class DataPager extends Vue {
   dataarr: Sets[] = []
   current: number = 1
+  current_query?: string;
   total: number = 0
   spp: number = 15
   totalp: number = 0
@@ -71,11 +72,9 @@ export default class DataPager extends Vue {
     this.ready = false
     let q = JSON.parse(JSON.stringify(this.query))
     if (q.spp) this.spp = q.spp
-    if (q.reset) {
-      this.current = 1
-      delete q.reset;
-    }
-    if (!q.page) q.page = this.current
+    if (q.q == this.current_query) q.page = this.current
+    else this.current = 1
+    this.current_query = q.q;
     //this.current = q.page == undefined ? 1 : +q.page
     q = Object.keys(q)
       .map((k) => `${k}=${encodeURIComponent(q[k])}`)

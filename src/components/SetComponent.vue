@@ -94,7 +94,8 @@ export default class SetComponent extends Vue {
     if (!tab) return
     let ta = tab as HTMLTextAreaElement
     ta.rows = this.description.split('\n').length
-    ;(this.$refs.tripdisp as HTMLTableDataCellElement).innerText = 'Tripcode'
+    if (this.$refs.tripdisp)
+      (this.$refs.tripdisp as HTMLTableDataCellElement).innerText = 'Tripcode'
   }
 
   async beforeUpdate() {
@@ -177,8 +178,8 @@ export default class SetComponent extends Vue {
     const v = (this.$refs.trip as HTMLInputElement).innerText
     let res = await axios.post<string>('/api/trip', {
       v,
-    });
-    (this.$refs.tripdisp as HTMLTableDataCellElement).innerText = res.data;
+    })
+    ;(this.$refs.tripdisp as HTMLTableDataCellElement).innerText = res.data
   }
 
   checkLength(e: Event) {
@@ -239,6 +240,7 @@ p {
 
 img {
   image-rendering: pixelated;
+  max-width: 100%;
 }
 
 .custom {

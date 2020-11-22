@@ -1,120 +1,133 @@
 <template>
-<div class="datapager">
-  <div v-show="ready">
-    <PageSelector :current="current" :total="total" :spp="spp" 
-    v-on:first="goToFirst()"
-    v-on:previous="goToPrevious()"
-    v-on:next="goToNext()"
-    v-on:last="goToLast()"
-    />
-    <div class="page">
-      <component :is="comp" v-for="(data, idx) in dataarr" :key="idx" :data="data"></component>
+  <div class="datapager">
+    <div v-show="ready">
+      <PageSelector
+        :current="current"
+        :total="total"
+        :spp="spp"
+        v-on:first="goToFirst()"
+        v-on:previous="goToPrevious()"
+        v-on:next="goToNext()"
+        v-on:last="goToLast()"
+      />
+      <div class="page">
+        <component
+          :is="comp"
+          v-for="(data, idx) in dataarr"
+          :key="idx"
+          :data="data"
+        ></component>
+      </div>
+      <div class="nothing" v-if="dataarr && dataarr.length == 0">
+        <h1>Wow! There's fucking nothing!</h1>
+        <img src="@/assets/wow.png" />
+      </div>
     </div>
-    <div class="nothing" v-if="dataarr && dataarr.length == 0">
-      <h1>Wow! There's fucking nothing!</h1>
-      <img src="@/assets/wow.png"/>
+    <div v-show="!ready">
+      <h2>Loading...</h2>
     </div>
   </div>
-  <div v-show="!ready">
-    <h2>Loading...</h2>
-  </div>
-</div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from "vue-property-decorator";
-import SetComponent from "@/components/SetComponent.vue";
-import ReplayComponent from "@/components/ReplayComponent.vue";
-import ChampComponent from "@/components/ChampComponent.vue";
-import PageSelector from "@/components/PageSelector.vue";
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
+import SetComponent from '@/components/SetComponent.vue'
+import ReplayComponent from '@/components/ReplayComponent.vue'
+import ChampComponent from '@/components/ChampComponent.vue'
+import PageSelector from '@/components/PageSelector.vue'
 
-import axios from "axios";
-import { Sets } from "@/Models/Sets";
+import axios from 'axios'
+import { Sets } from '@/Models/Sets'
 
 @Component({
   components: {
     SetComponent,
     ReplayComponent,
     PageSelector,
-    ChampComponent
-  }
+    ChampComponent,
+  },
 })
 export default class DataPager extends Vue {
-  dataarr: Sets[] = [];
-  current: number = 1;
-  total: number = 0;
-  spp: number = 15;
-  totalp: number = 0;
+  dataarr: Sets[] = []
+  current: number = 1
+  total: number = 0
+  spp: number = 15
+  totalp: number = 0
 
-  @Prop() endpoint!: string;
+  @Prop() endpoint!: string
 
-  @Prop() comp!: string;
+  @Prop() comp!: string
 
   @Prop({
     type: Object,
     default: () => {
-      return {};
-    }
+      return {}
+    },
   })
-  query!: any;
+  query!: any
 
-  ready: boolean = false;
+  ready: boolean = false
   async reload() {
-    this.ready = false;
-    let q = JSON.parse(JSON.stringify(this.query));
-    if (q.spp) this.spp = q.spp;
-    q.page = this.current;
+    this.ready = false
+    let q = JSON.parse(JSON.stringify(this.query))
+    if (q.spp) this.spp = q.spp
+    if (q.reset) {
+      this.current = 1
+      delete q.reset;
+    }
+    if (!q.page) q.page = this.current
+    //this.current = q.page == undefined ? 1 : +q.page
     q = Object.keys(q)
-      .map(k => `${k}=${encodeURIComponent(q[k])}`)
-      .join("&");
+      .map((k) => `${k}=${encodeURIComponent(q[k])}`)
+      .join('&')
     try {
-      let s = await axios.get<[number, Sets[]]>(`${this.endpoint}?${q}`);
-      this.total = +s.data[0];
-      this.totalp = ~~(this.total / this.spp) + +(this.total % this.spp !== 0);
-      this.dataarr = s.data[1];
+      let s = await axios.get<[number, Sets[]]>(`${this.endpoint}?${q}`)
+      this.total = +s.data[0]
+      this.totalp = ~~(this.total / this.spp) + +(this.total % this.spp !== 0)
+      this.dataarr = s.data[1]
     } catch (e) {
       this.total = 0
-      this.totalp = 0;
-      this.dataarr = [];
+      this.totalp = 0
+      this.dataarr = []
     }
-    this.navigate();
-    this.ready = true;
+    this.navigate()
+    this.ready = true
   }
 
   navigate() {
-    let q = JSON.parse(JSON.stringify(this.query));
-    q.page = "" + this.current;
+    let q = JSON.parse(JSON.stringify(this.query))
+    q.page = '' + this.current
     this.$router.push({
       path: this.$route.path,
-      query: q
-    });
+      query: q,
+    })
   }
 
   goToFirst() {
-    this.current = 1;
+    this.current = 1
   }
 
   goToPrevious() {
-    if (this.current > 1) this.current--;
+    if (this.current > 1) this.current--
   }
 
   goToNext() {
-    if (this.current < this.totalp) this.current++;
+    if (this.current < this.totalp) this.current++
   }
 
   goToLast() {
-    this.current = this.totalp;
+    this.current = this.totalp
   }
 
   created() {
-    this.current = +this.$route.query.page || 1;
-    this.reload();
+    this.current = +this.$route.query.page || 1
+    this.reload()
   }
 
-  @Watch("$props", { deep: true, immediate: false })
-  @Watch("current")
+  @Watch('$props', { deep: true, immediate: false })
+  @Watch('current')
   paramModified() {
-    this.reload();
+    this.reload()
   }
 }
 </script>

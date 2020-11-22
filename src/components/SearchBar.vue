@@ -21,7 +21,7 @@ export default class SearchBar extends Vue {
   value!: string
 
   search() {
-    this.$router.push({ path: '/results', query: { q: this.value, page: "1" } })
+    this.$router.push({ path: '/results', query: { q: this.value, reset: "1" } })
   }
 }
 </script>

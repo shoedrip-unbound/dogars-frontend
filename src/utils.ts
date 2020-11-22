@@ -31,21 +31,27 @@ let testimg = (url: string) => {
     });
 }
 
+let image_exists = async (url: string) => {
+    try {
+        testimg(url);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
 export async function getPokemonImage(mset: Sets, shiny?: boolean) {
     if (!mset)
         return '';
     if (!mset.species)
         return '';
-    if (mset.has_custom) {
-        return `${settings.domain}/api/custom/${mset.id}`;
-    }
-    let url = `https://play.pokemonshowdown.com/sprites/xyani${(mset.shiny && '-shiny') || ''}/${getNormalizedUniqueName(mset.species)}.gif`;
-    try {
-        await testimg(url);
-        return url;
-    } catch (e) {
-        return `https://play.pokemonshowdown.com/sprites/gen5${(mset.shiny && '-shiny') || ''}/${getNormalizedUniqueName(mset.species)}.png`
-    }
+    const customurl = `${settings.domain}/api/custom/${mset.id}`;
+    if (mset.has_custom || await image_exists(customurl))
+        return customurl;
+    const sprite3d = `https://play.pokemonshowdown.com/sprites/xyani${(mset.shiny && '-shiny') || ''}/${getNormalizedUniqueName(mset.species)}.gif`;
+    if (await image_exists(sprite3d))
+        return sprite3d;
+    return `https://play.pokemonshowdown.com/sprites/gen5${(mset.shiny && '-shiny') || ''}/${getNormalizedUniqueName(mset.species)}.png`
 }
 
 export function setToString(mset: Sets): string {

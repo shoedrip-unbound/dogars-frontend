@@ -39,22 +39,34 @@
     </div>
     <div>
       <icon name="cogs"></icon>
-    <router-link to="/settings">Settings</router-link>
+      <router-link to="/settings">Settings</router-link>
+    </div>
+
+    <div>
+      <icon name="heart"></icon>
+      <router-link to="/settings">Favorites</router-link>
+    </div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div>
+      <icon name="upload"></icon>
+      <router-link to="/suggest">Image suggestion</router-link>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-export default Vue.extend({});
+import Vue from 'vue'
+export default Vue.extend({})
 </script>
 
 <style scoped>
 #bot {
   display: grid;
   grid-template-areas:
-    "h h h h h"
-    "h h h h h";
+    'h h h h h'
+    'h h h h h';
   margin-top: 20px;
   box-shadow: 0px 10px 23px -13px black inset;
   padding: 15px 10px 10px 10px;
@@ -81,8 +93,8 @@ div svg {
 
   #bot {
     grid-template-areas:
-      "h h"
-      "h h";
+      'h h'
+      'h h';
     margin-top: 20px;
     text-align: start;
   }

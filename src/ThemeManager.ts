@@ -35,6 +35,14 @@ export function getCurrentWaifuName() {
   return localStorage.getItem('waifuname') || 'None';
 }
 
+export function get2DSpriteEnabled() {
+  return localStorage.getItem('sprites') == "1";
+}
+
+export function set2DSpriteEnabled(val: boolean) {
+  localStorage.setItem('sprites', '' + (+val));
+}
+
 function reloadTheme() {
   let bodys = document.body.style;
   for (let i in loadedTheme) {

@@ -17,6 +17,8 @@ import 'vue-awesome/icons/reply';
 import 'vue-awesome/icons/camera';
 
 import 'vue-awesome/icons/cogs';
+import 'vue-awesome/icons/heart';
+import 'vue-awesome/icons/upload';
 import 'vue-awesome/icons/file-alt';
 
 import 'vue-awesome/icons/angle-left';

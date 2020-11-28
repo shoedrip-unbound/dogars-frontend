@@ -5,6 +5,7 @@
         data.name || data.species
       }}</router-link>
     </h3>
+    <heart-check-box :checked="isfave" @click="faved"></heart-check-box>
     <div class="wrapper">
       <img :class="{ setImage: true, custom: data.has_custom }" :src="imgUrl" />
     </div>
@@ -60,8 +61,9 @@
 <script lang="ts">
 import { Component, Prop, Vue, Provide, Watch } from 'vue-property-decorator'
 import { Sets } from '@/Models/Sets'
-import { getPokemonImage, setToString } from '../utils'
+import { faves, getPokemonImage, isSetFave, saveFaves, setToString } from '../utils'
 import axios from 'axios'
+import HeartCheckBox from "@/components/HeartCheckBox.vue";
 
 let tgl = (elem: Element) => {
   if (elem.hasAttribute('contenteditable'))
@@ -69,7 +71,11 @@ let tgl = (elem: Element) => {
   else elem.setAttribute('contenteditable', 'true')
 }
 
-@Component
+@Component({
+  components: {
+    HeartCheckBox,
+  }
+})
 export default class SetComponent extends Vue {
   @Prop({ required: true })
   data!: any
@@ -79,6 +85,7 @@ export default class SetComponent extends Vue {
   description = ''
   editing = false
   deleting = false
+  isfave = false;
 
   focused(ev: FocusEvent) {
     let ta = ev.srcElement! as HTMLTextAreaElement
@@ -86,6 +93,7 @@ export default class SetComponent extends Vue {
   }
 
   async reload() {
+    this.isfave = isSetFave(this.data.id)
     let k = new Date(+this.data.date_added!)
     this.datestring = k.toDateString()
     this.imgUrl = await getPokemonImage(this.data)
@@ -100,6 +108,17 @@ export default class SetComponent extends Vue {
 
   async beforeUpdate() {
     await this.reload()
+  }
+
+  faved() {
+    this.isfave = !this.isfave;
+    const idx = faves.indexOf(this.data.id);
+    if (idx >= 0)
+      faves.splice(idx, 1);
+    if (this.isfave) {
+      faves.push(this.data.id)
+      saveFaves();
+    }
   }
 
   async mounted() {

@@ -26,7 +26,7 @@ export default class Set extends Vue {
       let req = await axios.get(`/api/sets/${id}`);
       this.set = req.data;
     } catch(e) {
-      this.$router.push('/');
+      this.$router.push('/404');
     }
   }
 

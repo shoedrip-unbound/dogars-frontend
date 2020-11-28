@@ -16,6 +16,7 @@ import Settings from './views/Settings.vue';
 import Contact from './views/Contact.vue';
 import Changelog from './views/Changelog.vue';
 import NotFound from './views/NotFound.vue';
+import Favorites from './views/Favorites.vue';
 
 Vue.use(Router);
 
@@ -34,6 +35,10 @@ export default new Router({
       path: '/random',
       name: 'random',
       component: Random
+    }, {
+      path: '/fave',
+      name: 'fave',
+      component: Favorites
     }, {
       path: '/all',
       name: 'all',
@@ -82,6 +87,10 @@ export default new Router({
       path: '/set/:id',
       name: 'set',
       component: Sets
+    }, {
+      path: '/404',
+      name: 'notfound',
+      component: NotFound
     }, {
       path: '*',
       component: NotFound

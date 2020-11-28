@@ -44,7 +44,7 @@
 
     <div>
       <icon name="heart"></icon>
-      <router-link to="/settings">Favorites</router-link>
+      <router-link to="/fave">Favorites</router-link>
     </div>
     <div></div>
     <div></div>

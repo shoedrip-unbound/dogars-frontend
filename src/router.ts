@@ -17,6 +17,7 @@ import Contact from './views/Contact.vue';
 import Changelog from './views/Changelog.vue';
 import NotFound from './views/NotFound.vue';
 import Favorites from './views/Favorites.vue';
+import Suggestion from './views/Suggestion.vue';
 
 Vue.use(Router);
 
@@ -67,6 +68,10 @@ export default new Router({
       path: '/settings',
       name: 'settings',
       component: Settings
+    }, {
+      path: '/suggest',
+      name: 'suggest',
+      component: Suggestion
     }, {
       path: '/contact',
       name: 'contact',

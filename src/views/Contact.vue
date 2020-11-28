@@ -1,8 +1,6 @@
 <template>
   <div id="contact">
     <h2>Contact</h2>
-    <b>THIS FORM IS BROKEN SINCE THE SWITCH TO THE NEW DOMAIN.</b>
-    <b>DO NOT USE UNTIL THIS MESSAGE IS GONE.</b>
     You can anonymously contact me here.<br>
 
     <label>Subject: </label><input @focus="error = ''" placeholder="Can be empty..." type="text" v-model="sub"/>

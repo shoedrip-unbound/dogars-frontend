@@ -25,9 +25,14 @@ export default class Set extends Vue {
     try {
       let req = await axios.get(`/api/sets/${id}`);
       this.set = req.data;
+      document.title = `${this.set.name} — Dogars`;
     } catch(e) {
       this.$router.push('/404');
     }
+  }
+
+  beforeDestroy() {
+    document.title = 'Dogars v2.6';
   }
 
   @Watch("$route")
@@ -38,6 +43,10 @@ export default class Set extends Vue {
   beforeRouteUpdate(to: this["$route"], from: any, next: any) {
     this.refresh(to);
     next();
+  }
+
+  getTitle() {
+    return this.set.name || 'coom';
   }
 }
 </script>

@@ -18,6 +18,16 @@
           :data="data"
         ></component>
       </div>
+      <PageSelector
+        :current="current"
+        :total="total"
+        :spp="spp"
+        v-on:first="goToFirst()"
+        v-on:previous="goToPrevious()"
+        v-on:next="goToNext()"
+        v-on:last="goToLast()"
+      />
+
       <div class="nothing" v-if="dataarr && dataarr.length == 0">
         <h1>Wow! There's fucking nothing!</h1>
         <img src="@/assets/wow.png" />
@@ -50,7 +60,7 @@ import { Sets } from '@/Models/Sets'
 export default class DataPager extends Vue {
   dataarr: Sets[] = []
   current: number = 1
-  current_query?: string;
+  current_query?: string
   total: number = 0
   spp: number = 15
   totalp: number = 0
@@ -74,7 +84,7 @@ export default class DataPager extends Vue {
     if (q.spp) this.spp = q.spp
     if (q.q == this.current_query) q.page = this.current
     else this.current = 1
-    this.current_query = q.q;
+    this.current_query = q.q
     //this.current = q.page == undefined ? 1 : +q.page
     q = Object.keys(q)
       .map((k) => `${k}=${encodeURIComponent(q[k])}`)

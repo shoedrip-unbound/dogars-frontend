@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h2>Welcome to the Meme Database</h2>
+    <h2>Welcome to the Meme Database, it's fucking over</h2>
     Simply, this is a place to submit and view meme sets. If you don't know what this is, lurk moar. That's it. Now go find some memes.
     <h2>Meme of the day</h2>
     <SetComponent v-bind:data="meme"/>

@@ -68,7 +68,7 @@ export async function getPokemonImage(mset: Sets, shiny?: boolean) {
         return m;
     if (await image_exists(a))
         return a;
-    return `https://play.pokemonshowdown.com/sprites/dex${(mset.shiny && '-shiny') || ''}/${getNormalizedUniqueName(mset.species)}.gif`;
+    return `https://play.pokemonshowdown.com/sprites/dex${(mset.shiny && '-shiny') || ''}/${getNormalizedUniqueName(mset.species)}.png`;
 }
 
 export function setToString(mset: Sets): string {

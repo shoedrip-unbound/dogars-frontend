@@ -1,3 +1,5 @@
+/* eslint-disable  */
+
 import { Sets, Moves } from '@/Models/Sets';
 import { settings } from '@/settings';
 import { get2DSpriteEnabled } from './ThemeManager';
@@ -64,7 +66,9 @@ export async function getPokemonImage(mset: Sets, shiny?: boolean) {
     const [m, a] = get2DSpriteEnabled() ? [sprite2d, sprite3d] : [sprite3d, sprite2d];
     if (await image_exists(m))
         return m;
-    return a;
+    if (await image_exists(a))
+        return a;
+    return `https://play.pokemonshowdown.com/sprites/dex${(mset.shiny && '-shiny') || ''}/${getNormalizedUniqueName(mset.species)}.gif`;
 }
 
 export function setToString(mset: Sets): string {

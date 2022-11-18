@@ -1,6 +1,6 @@
 import Component from 'vue-class-component';
 
-import Vue, { PluginFunction, PluginObject } from 'vue';
+import Vue, { ComponentOptions, PluginFunction, PluginObject, VueConstructor } from 'vue';
 import App from './App.vue';
 import router from './router';
 import axios from 'axios';
@@ -30,6 +30,7 @@ import Icon from 'vue-awesome/components/Icon';
 import CheckboxRadio from 'vue-checkbox-radio';
 
 import { init } from './ThemeManager';
+import { DefaultComputed, DefaultData, DefaultMethods, PropsDefinition } from 'vue/types/options';
 
 Component.registerHooks([
   'beforeRouteEnter',

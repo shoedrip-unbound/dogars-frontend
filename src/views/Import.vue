@@ -36,7 +36,7 @@ export default class Import extends Vue {
   desc: string = "";
   creat: string = "";
   trip: string = "";
-  format: string = "gen8ou";
+  format: string = "gen9ou";
   error: string = "";
   submitting: boolean = false;
   data: { [k in string]: Format } = {};

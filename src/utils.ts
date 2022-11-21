@@ -82,6 +82,8 @@ export function setToString(mset: Sets): string {
     if (mset.item && mset.item != '')
         res += ` @ ${mset.item}`;
     res += `\nAbility: ${mset.ability}\n`;
+    if (mset.teraType)
+        res += `Tera Type: ${mset.teraType}\n`;
     if (mset.level && mset.level != 100)
         res += `Level: ${mset.level}\n`;
     if (mset.shiny)
